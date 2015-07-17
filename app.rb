@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'bundler/setup'
+
 require "pry"
 require "active_record"
 require "sinatra"
@@ -8,10 +11,14 @@ require 'bcrypt'
 set :sessions, true
 
 #setting up database
-ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'database.db')
+configure :development do
+  ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'database.db')
+end
 
 # So that ActiveRecord explains the SQL it's running in the logs.
 ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)
+
+
 
 
 # Models
