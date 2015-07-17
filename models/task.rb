@@ -1,9 +1,21 @@
 
+class User < ActiveRecord::Base
+  unless ActiveRecord::Base.connection.table_exists?(:users)
+    ActiveRecord::Base.connection.create_table :users do |t|
+      t.text :admin
+      t.text :password
+    end
+  end
+end
+
+# User.create({admin:"sammers", password:"DeadMau5"})
+
 class Photographer < ActiveRecord::Base
   has_many :photos
   unless ActiveRecord::Base.connection.table_exists?(:photographers)
     ActiveRecord::Base.connection.create_table :photographers do |t|
       t.string :name
+      t.text :about
     end
   end
 end
@@ -16,8 +28,22 @@ class Photo < ActiveRecord::Base
     ActiveRecord::Base.connection.create_table :photos do |t|
       t.string :title
       t.integer :photographer_id
+      t.text :description
     end
   end
+
+  # Photographer: Travis Rhoads
+  # Image
+  #
+  #
+  #
+  #
+  #
+  #
+
+
+
+
 
   # IF photo is in at least 3 albums, call that photo "top photo"
   #
